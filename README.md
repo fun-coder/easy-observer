@@ -12,15 +12,13 @@ npm install easy-observer
 ### Usage
 
 ```javascript
-import { observe } from 'obj-id';
+import { observe } from 'easy-observer';
 
-let a = {
-	name: 'Hello'
-};
+let a = { name: 'Hello' };
 
 observe(a, 'name', (previous, current) => {
-	# previous is 'Hello'.
-	# current is 'World'.
+	// previous is 'Hello'.
+	// current is 'World'.
 });
 
 a.name = 'World';
