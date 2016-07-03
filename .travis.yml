@@ -1,0 +1,12 @@
+language: node_js
+
+node_js:
+  - "6.2.0"
+
+install:
+  - npm install
+
+cache:
+  directories:
+    - node_modules
+    - /home/travis/.nvm
