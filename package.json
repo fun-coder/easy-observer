@@ -1,6 +1,6 @@
 {
   "name": "easy-observer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A single observer",
   "main": "dist/index.js",
   "scripts": {
