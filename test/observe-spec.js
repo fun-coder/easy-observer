@@ -2,8 +2,8 @@
 
 import {observe} from '../libs/index';
 import {expect} from 'chai';
+import Promise from 'bluebird';
 
-import assert from 'assert';
 
 describe('Observe', () => {
   let item, name;
@@ -11,7 +11,7 @@ describe('Observe', () => {
   };
 
   beforeEach(() => {
-    item = Object.create(null);
+    item = new Object();
     name = 'Hello';
   });
 
@@ -71,4 +71,27 @@ describe('Observe', () => {
       .to.throw('Easy-observer can not observe a un-writable property.');
   });
 
+  it('should observe by multiple observer', (done) => {
+
+    let firstDefer = Promise.defer();
+    let secondDefer = Promise.defer();
+
+    observe(item, 'name', (previous, current) => {
+      firstDefer.resolve(previous);
+    });
+
+    observe(item, 'name', (previous, current) => {
+      secondDefer.resolve(current);
+    });
+
+    Promise.all([
+      firstDefer.promise, secondDefer.promise
+    ]).then(([previous,current]) => {
+      expect(previous).to.be.undefined;
+      expect(current).to.eql(name);
+      done();
+    });
+
+    item.name = name;
+  });
 });

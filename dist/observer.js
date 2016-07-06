@@ -16,6 +16,7 @@ var Observer = function () {
     this.property = property;
     this.listeners = [];
     this.check(obj, property);
+    this.value = obj[property];
   }
 
   _createClass(Observer, [{

@@ -3,18 +3,18 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.observe = undefined;
 
-var _observer = require("./observer");
+var _observerMap = require("./observer-map");
 
-var _observer2 = _interopRequireDefault(_observer);
+var _observerMap2 = _interopRequireDefault(_observerMap);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (obj, property, listener) {
-
-  var observer = new _observer2.default(obj, property);
+var observe = exports.observe = function observe(target, property, listener) {
+  var observer = (0, _observerMap2.default)(target, property);
 
   observer.register(listener);
 
-  Object.defineProperty(obj, property, observer.descriptor);
+  Object.defineProperty(target, property, observer.descriptor);
 };

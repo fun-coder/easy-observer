@@ -1,11 +1,10 @@
 "use strict";
-import Observer from './observer';
+import getObserver from './observer-map';
 
-export const observe = (obj, property, listener) => {
-
-  let observer = new Observer(obj, property);
+export const observe = (target, property, listener) => {
+  let observer = getObserver(target, property);
 
   observer.register(listener);
 
-  Object.defineProperty(obj, property, observer.descriptor);
+  Object.defineProperty(target, property, observer.descriptor);
 };
