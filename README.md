@@ -2,7 +2,7 @@
 
 Observe a simple property change and trigger listener.
 
-[![Build Status](https://travis-ci.org/li-qiang/easy-observer.svg?branch=master)](https://travis-ci.org/li-qiang/easy-observer)
+[![Build Status](https://travis-ci.org/fun-coder/easy-observer.svg?branch=master)](https://travis-ci.org/fun-coder/easy-observer)
 
 ### Install
 
