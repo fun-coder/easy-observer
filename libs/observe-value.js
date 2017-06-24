@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 import { getObserver } from './get-observer';
 import { ValueObserver } from './observers/value-observer';
 

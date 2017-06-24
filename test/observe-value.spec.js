@@ -1,5 +1,4 @@
-"use strict";
-
+'use strict';
 import { observeValue } from '../index';
 import { expect } from 'chai';
 import Promise from 'bluebird';
@@ -47,13 +46,11 @@ describe('Observe value', () => {
       .to.throw('Easy-observer can not observeValue a getter property.');
   });
 
-
   it('should throw an exception when observer a un-configurable property.', () => {
     Object.defineProperty(item, 'name', {
       enumerable: true,
       value: name
     });
-
     expect(() => observeValue(item, 'name', emptyListener))
       .to.throw('Easy-observer can not observeValue a un-configurable property.');
   });
@@ -65,7 +62,6 @@ describe('Observe value', () => {
       writable: false,
       value: name
     });
-
     expect(() => observeValue(item, 'name', emptyListener))
       .to.throw('Easy-observer can not observeValue a un-writable property.');
   });
@@ -75,7 +71,7 @@ describe('Observe value', () => {
     let firstDefer = Promise.defer();
     let secondDefer = Promise.defer();
 
-    observeValue(item, 'name', (previous, current) => {
+    observeValue(item, 'name', (previous) => {
       firstDefer.resolve(previous);
     });
 

@@ -4,7 +4,8 @@
   "description": "A single observer",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-register"
+    "test": "mocha --compilers js:babel-register",
+    "lint": "eslint ./**/*.js --fix"
   },
   "keywords": [
     "observer",
@@ -29,6 +30,8 @@
     "babel-register": "^6.9.0",
     "bluebird": "^3.4.1",
     "chai": "^3.5.0",
+    "eslint": "^4.1.0",
+    "eslint-plugin-jasmine": "^2.6.2",
     "mocha": "^2.5.3"
   },
   "dependencies": {}

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 import { observeValue } from './observe-value';
 
 export const observable = target => {

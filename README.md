@@ -50,7 +50,7 @@ c.name = 2; // count = 3; Not trigger when change the non-observed property
 
 ### Run Test
 
-```
+```bash
 npm install 
 
 npm test
