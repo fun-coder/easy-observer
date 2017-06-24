@@ -1,11 +1,10 @@
 "use strict";
 
-import {observe} from '../libs/index';
-import {expect} from 'chai';
+import { observeValue } from '../index';
+import { expect } from 'chai';
 import Promise from 'bluebird';
 
-
-describe('Observe', () => {
+describe('Observe value', () => {
   let item, name;
   let emptyListener = () => {
   };
@@ -16,7 +15,7 @@ describe('Observe', () => {
   });
 
   it('should trigger a listener when set the observed property', (done) => {
-    observe(item, 'name', (previousValue, currentValue) => {
+    observeValue(item, 'name', (previousValue, currentValue) => {
       expect(previousValue).to.be.undefined;
       expect(currentValue).to.eql(name);
       done();
@@ -25,10 +24,10 @@ describe('Observe', () => {
     item.name = name;
   });
 
-  it('should save the previous anwser when observe a property', (done) => {
-    let person = {name: 'Hello'};
+  it('should save the previous anwser when observeValue a property', (done) => {
+    let person = { name: 'Hello' };
 
-    observe(person, 'name', (previous, current) => {
+    observeValue(person, 'name', (previous, current) => {
       expect(previous).to.eql('Hello');
       expect(current).to.eql('World');
       done();
@@ -44,8 +43,8 @@ describe('Observe', () => {
       get: () => name
     });
 
-    expect(() => observe(item, 'name', emptyListener))
-      .to.throw('Easy-observer can not observe a getter property.');
+    expect(() => observeValue(item, 'name', emptyListener))
+      .to.throw('Easy-observer can not observeValue a getter property.');
   });
 
 
@@ -55,8 +54,8 @@ describe('Observe', () => {
       value: name
     });
 
-    expect(() => observe(item, 'name', emptyListener))
-      .to.throw('Easy-observer can not observe a un-configurable property.');
+    expect(() => observeValue(item, 'name', emptyListener))
+      .to.throw('Easy-observer can not observeValue a un-configurable property.');
   });
 
   it('should throw an exception when observer a un-writable property.', () => {
@@ -67,26 +66,26 @@ describe('Observe', () => {
       value: name
     });
 
-    expect(() => observe(item, 'name', emptyListener))
-      .to.throw('Easy-observer can not observe a un-writable property.');
+    expect(() => observeValue(item, 'name', emptyListener))
+      .to.throw('Easy-observer can not observeValue a un-writable property.');
   });
 
-  it('should observe by multiple observer', (done) => {
+  it('should observeValue by multiple observer', (done) => {
 
     let firstDefer = Promise.defer();
     let secondDefer = Promise.defer();
 
-    observe(item, 'name', (previous, current) => {
+    observeValue(item, 'name', (previous, current) => {
       firstDefer.resolve(previous);
     });
 
-    observe(item, 'name', (previous, current) => {
+    observeValue(item, 'name', (previous, current) => {
       secondDefer.resolve(current);
     });
 
     Promise.all([
       firstDefer.promise, secondDefer.promise
-    ]).then(([previous,current]) => {
+    ]).then(([previous, current]) => {
       expect(previous).to.be.undefined;
       expect(current).to.eql(name);
       done();
