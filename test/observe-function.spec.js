@@ -26,4 +26,25 @@ describe('Observe function', () => {
     expect(count).to.equal(3, 'Not trigger when change the observed property which is not used in the function');
   });
 
+
+  it('should not trigger when the oberved object is replaced', () => {
+    const a = observable({ name: 'first', age: 2 });
+    const b = observable({ target: a });
+
+    let count = 0;
+
+    observeFn(() => {
+      b.target.name;
+      count++;
+    });
+
+    a.name = 'hello';
+    expect(count).to.equal(2);
+
+    b.target = {};
+    expect(count).to.equal(3);
+
+    a.name = 'world';
+    expect(count).to.equal(3);
+  });
 });

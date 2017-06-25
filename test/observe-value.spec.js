@@ -23,6 +23,15 @@ describe('Observe value', () => {
     item.name = name;
   });
 
+  it('should not trigger listener when remove it', () => {
+    let count = 0;
+    const listener = () => count++;
+    const observer = observeValue(item, 'name', listener);
+    item.name = name;
+    observer.unregister(listener);
+    expect(count).to.equal(1);
+  });
+
   it('should save the previous anwser when observeValue a property', (done) => {
     let person = { name: 'Hello' };
 

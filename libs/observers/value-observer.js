@@ -1,5 +1,7 @@
-"use strict";
+'use strict';
 import { collectObserver } from '../observe-function';
+import { unqiue } from './id';
+import { bindFn, bindThis } from './function-bind';
 
 const defaultDescriptor = {
   enumerable: true,
@@ -7,15 +9,17 @@ const defaultDescriptor = {
   value: undefined
 };
 
+@bindFn
 export class ValueObserver {
+
+  @unqiue id;
+  descriptor;
+  listeners = [];
 
   static from(target, property) {
     const descriptor = Object.getOwnPropertyDescriptor(target, property);
     return new ValueObserver(descriptor);
   }
-
-  descriptor;
-  listeners = [];
 
   constructor(descriptor) {
     this.setDescriptor(descriptor);
@@ -28,11 +32,13 @@ export class ValueObserver {
     this.value = desc.value;
   }
 
+  @bindThis
   getter() {
     collectObserver(this);
     return this.value;
   }
 
+  @bindThis
   setter(value) {
     if (value === this.value) return;
     const tmp = this.value;
@@ -44,6 +50,11 @@ export class ValueObserver {
     listener instanceof Function
     && this.listeners.indexOf(listener) === -1
     && this.listeners.push(listener);
+  }
+
+  unregister(listener) {
+    const index = this.listeners.indexOf(listener);
+    this.listeners.splice(index, 1);
   }
 
   get propertyDescriptor() {

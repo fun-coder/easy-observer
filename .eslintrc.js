@@ -1,4 +1,5 @@
 module.exports = {
+  "parser": "babel-eslint",
   "plugins": ["jasmine"],
   "env": {
     "es6": true,
@@ -10,21 +11,9 @@ module.exports = {
     "sourceType": "module"
   },
   "rules": {
-    "indent": [
-      "error",
-      2
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"]
   }
 };
