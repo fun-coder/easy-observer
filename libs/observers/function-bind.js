@@ -1,15 +1,22 @@
 'use strict';
 
+const key = Symbol('_bindFns');
+
+const getFns = target => {
+  target[key] = target[key] || [];
+  return target[key];
+};
+
 export const bindFn = target => {
   return class extends target {
     constructor(...args) {
       super(...args);
-      (target._bindFns || []).forEach(fn => this[fn.name] = this[fn.name].bind(this));
+      getFns(target.prototype).forEach(fn => this[fn] = ::this[fn]);
     }
   };
 };
 
 export const bindThis = (target, propertyName) => {
-  target._bindFns = target._bindFns || [];
-  target._bindFns.push(propertyName);
+  const fns = getFns(target);
+  fns.push(propertyName);
 };

@@ -1,6 +1,5 @@
 'use strict';
 import { CombineObserver } from './observers/combine-observer';
-
 let currentInstance = null;
 
 class FunctionObserver {

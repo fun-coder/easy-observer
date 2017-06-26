@@ -16,12 +16,8 @@ export class ValueObserver {
   descriptor;
   listeners = [];
 
-  static from(target, property) {
+  constructor(target, property) {
     const descriptor = Object.getOwnPropertyDescriptor(target, property);
-    return new ValueObserver(descriptor);
-  }
-
-  constructor(descriptor) {
     this.setDescriptor(descriptor);
   }
 
@@ -61,8 +57,8 @@ export class ValueObserver {
     return {
       enumerable: this.descriptor.enumerable,
       configurable: this.descriptor.configurable,
-      get: ::this.getter,
-      set: ::this.setter
+      get: this.getter,
+      set: this.setter
     };
   }
 
